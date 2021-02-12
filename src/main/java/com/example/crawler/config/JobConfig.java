@@ -31,18 +31,6 @@ public final class JobConfig {
      */
     private String output;
 
-    public JobConfig(final String term) {
-        init(term, DEFAULT_MAX_REQUEST, DEFAULT_INPUT, DEFAULT_OUTPUT);
-    }
-
-    public JobConfig(final String term, final int maxRequests){
-        init(term, maxRequests, DEFAULT_INPUT, DEFAULT_OUTPUT);
-    }
-
-    public JobConfig(final String term, final int maxRequests, final String input){
-        init(term, maxRequests, input, DEFAULT_OUTPUT);
-    }
-
     public JobConfig(final String term, final int maxRequests, final String input, final String output){
         init(term, maxRequests, input, output);
     }
@@ -74,6 +62,7 @@ public final class JobConfig {
         return output;
     }
 
+
     private String stringChecking(final String value, final String name) {
         Objects.requireNonNull(name);
         if (value == null){
@@ -91,5 +80,36 @@ public final class JobConfig {
 
     public Duration getReadTimeout() {
         return Duration.ofMillis(DEFAULT_READ_TIMEOUT);
+    }
+
+    public static class JobConfigBuilder {
+        private String term;
+        private int maxRequests = DEFAULT_MAX_REQUEST;
+        private String input = DEFAULT_INPUT;
+        private String output = DEFAULT_OUTPUT;
+
+        public JobConfigBuilder setTerm(final String term) {
+            this.term = term;
+            return this;
+        }
+
+        public JobConfigBuilder setMaxRequests(final int maxRequests) {
+            this.maxRequests = maxRequests;
+            return this;
+        }
+
+        public JobConfigBuilder setInput(final String input) {
+            this.input = input;
+            return this;
+        }
+
+        public JobConfigBuilder setOutput(final String output) {
+            this.output = output;
+            return this;
+        }
+
+        public JobConfig build() {
+            return new JobConfig(term, maxRequests, input, output);
+        }
     }
 }

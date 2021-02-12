@@ -22,10 +22,6 @@ public final class Crawler {
     private static final Logger logger = LoggerFactory.getLogger(Crawler.class);
     private final JobConfig jobConfig;
 
-    public Crawler(final String term) {
-        jobConfig = new JobConfig(term);
-    }
-
     public Crawler(JobConfig jobConfig) {
         this.jobConfig = jobConfig;
     }

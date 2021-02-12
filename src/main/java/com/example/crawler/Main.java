@@ -30,18 +30,27 @@ public final class Main {
     }
 
     private static JobConfig buildJobConfig(final String[] args) {
-        JobConfig config;
-        config= new JobConfig(args[0]);
-        if (args.length == 2){
-            config=new JobConfig(args[0], Integer.parseInt(args[1]));
+        if (args.length >= 1) {
+            final String term = args[0];
+            final JobConfig.JobConfigBuilder builder = new JobConfig.JobConfigBuilder();
+            builder.setTerm(term);
+
+            if (args.length >= 2) {
+                final int maxRequests = Integer.parseInt(args[1]);
+                builder.setMaxRequests(maxRequests);
+
+            }
+            if (args.length >= 3) {
+                builder.setInput(args[2]);
+            }
+            if (args.length >= 4) {
+                builder.setOutput(args[3]);
+            }
+            return builder.build();
+        } else {
+            usage();
+            throw new IllegalArgumentException();
         }
-        if (args.length == 3){
-            config = new JobConfig(args[0], Integer.parseInt(args[1]), args[2]);
-        }
-        if (args.length >= 4) {
-            config = new JobConfig(args[0], Integer.parseInt(args[1]), args[2], args[3]);
-        }
-        return config;
     }
 
     private static void usage() {
