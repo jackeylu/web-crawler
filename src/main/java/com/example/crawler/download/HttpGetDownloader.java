@@ -73,8 +73,6 @@ public final class HttpGetDownloader{
 
             @Override
             public void onResponse(final Call call, final Response response) {
-                logger.info("response for {} with code {}", url, response.code());
-
                 if (response.isSuccessful()) {
                     final ResponseBody body = response.body();
                     if (null != body) {

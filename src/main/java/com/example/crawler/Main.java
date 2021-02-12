@@ -48,7 +48,7 @@ public final class Main {
         System.err.println("web crawler.");
         System.err.println("<term> [maxRequest] [input] [output]");
         System.err.println("term\t\tthe search term");
-        System.err.println("maxRequest\t\tthe max number of concurrent requests");
+        System.err.println("maxRequest\tthe max number of concurrent requests");
         System.err.println("input\t\tthe urls to be search, default is web_crawler_url_list.txt");
         System.err.println("output\t\tthe output filename, default is result.txt");
     }
