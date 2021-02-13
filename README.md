@@ -3,17 +3,24 @@
 An exercise on web crawling with Java language, which load request urls from a url list file, and then
 crawling the content and detecting the search term exists or not.
 
-## Direction
+## Requirements and Implementation
+
+- Search is case insenstive
+- Should be concurrent AND it should not have more than 20 HTTP requests at any given time
+- The results should be written out to a file result.txt
+- Avoid using any thread pooling libraries. For example, in Java, don't use Executor, ThreadPoolExecutor, Celluloid, or Parallel streams.
+
+Implementation in the [source code directories](src/main/java/com/example/crawler/):
 
 ```text
-├─config        The configuration class for the crawling job.
-├─download      A http downloader based on OKHttp client.
+├─config        The configuration class for the crawling job, including the default settings on max concurrent requests, file input and output.
+├─download      A http downloader based on OKHttp client, the max concurrent running requests is controlled by the dispaterch of http client instance, it shares a blocking queue with Crawler.java for the crawled result .
 ├─entity        Entities used for this project
 ├─io            The code for loading and parsing urls from a text file.
 ├─pipeline      A pipeline to combine the filtering and storing job.
-│  └─handler
-└─worker        The job dispatcher.
-Main.java       The main entry of this program.
+│  └─handler   TermSearchHandler.java can search the required term with case insenstive, ResultStoreHandler.java will write out results to the result file.
+└─worker        The job dispatcher Crawler.java does the working flow control.
+Main.java       The main entry of this program, include the arguments parsing and calling the crawling job.
 ```
 
 # How to run
